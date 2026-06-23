@@ -91,10 +91,10 @@ extensions:
       kernel-module-lz4: '*'
       kernel-module-lz4-compress: '*'
       # --- Firmware ---
-      linux-firmware-imx-sdma-imx7d: '*'
+      firmware-imx-sdma-imx7d: '*'
       firmware-nxp-wifi-nxp8997-sdio: '*'
       firmware-nxp-wifi-nxp8997-pcie: '*'
       wireless-regdb-static: '*'
 
 sdk:
-  image: docker.io/avocadolinux/sdk:{{ env.AVOCADO_DISTRO_RELEASE }}-{{ env.AVOCADO_DISTRO_CHANNEL }}
+  image: docker.io/avocadolinux/sdk:{{ env.AVOCADO_DISTRO_RELEASE }}
