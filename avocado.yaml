@@ -4,7 +4,7 @@ supported_targets:
 
 extensions:
   avocado-bsp-imx8mp-evk:
-    version: 2024.1.0
+    version: 0.1.0
     release: r0
     summary: Board support for the i.MX 8M Plus EVK
     description: Board support for the i.MX 8M Plus EVK
@@ -91,10 +91,10 @@ extensions:
       kernel-module-lz4: '*'
       kernel-module-lz4-compress: '*'
       # --- Firmware ---
-      linux-firmware-imx-sdma-imx7d: '*'
+      firmware-imx-sdma-imx7d: '*'
       firmware-nxp-wifi-nxp8997-sdio: '*'
       firmware-nxp-wifi-nxp8997-pcie: '*'
       wireless-regdb-static: '*'
 
 sdk:
-  image: docker.io/avocadolinux/sdk:{{ env.AVOCADO_DISTRO_RELEASE }}-{{ env.AVOCADO_DISTRO_CHANNEL }}
+  image: docker.io/avocadolinux/sdk:{{ env.AVOCADO_DISTRO_RELEASE }}
