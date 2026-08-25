@@ -108,10 +108,19 @@ extensions:
     # packages; the -all-{sdio,pcie} umbrellas are what the EVK's
     # nxpwifi-all-{sdio,pcie} MACHINE_FEATURES select. crct10dif is no longer a
     # module (arm64 CRC-T10DIF acceleration lives in lib/crc).
+    #
+    # The EVK's stock M.2 module is an 88W8997, which NXP's 6.18 moal driver
+    # and firmware release no longer cover at all; the mainline mwifiex driver
+    # plus firmware-nxp-wifi-8997 (meta-avocado-nxp, blobs from NXP's
+    # lf-6.12.49 release) take over. moal/mlan stay for other NXP modules.
     kernel-6.18.*:
       packages:
         firmware-nxp-wifi-all-sdio: '*'
         firmware-nxp-wifi-all-pcie: '*'
+        firmware-nxp-wifi-8997: '*'
+        kernel-module-mwifiex: '*'
+        kernel-module-mwifiex-sdio: '*'
+        kernel-module-mwifiex-pcie: '*'
 
 sdk:
   image: docker.io/avocadolinux/sdk:{{ env.AVOCADO_DISTRO_RELEASE }}
