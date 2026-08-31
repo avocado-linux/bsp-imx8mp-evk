@@ -4,7 +4,7 @@ supported_targets:
 
 extensions:
   avocado-bsp-imx8mp-evk:
-    version: 0.1.0
+    version: 0.1.1
     release: r0
     summary: Board support for the i.MX 8M Plus EVK
     description: Board support for the i.MX 8M Plus EVK
@@ -35,7 +35,6 @@ extensions:
       kernel-module-libdes: '*'
       kernel-module-secvio: '*'
       kernel-module-fsl-jr-uio: '*'
-      kernel-module-crct10dif-ce: '*'
       kernel-module-polyval-ce: '*'
       kernel-module-polyval-generic: '*'
       # --- Audio / Sound ---
@@ -92,9 +91,36 @@ extensions:
       kernel-module-lz4-compress: '*'
       # --- Firmware ---
       firmware-imx-sdma-imx7d: '*'
-      firmware-nxp-wifi-nxp8997-sdio: '*'
-      firmware-nxp-wifi-nxp8997-pcie: '*'
       wireless-regdb-static: '*'
+
+    # Per-kernel packages, same shape as the jetson BSPs: avocado-cli picks the
+    # kernel-<version> block matching the feed's kernel at install time.
+    #
+    # 2024 feed (linux-imx 6.6): NXP's per-chip 88W8997 firmware packages and
+    # the arm64 CRC-T10DIF accelerator module.
+    kernel-6.6.*:
+      packages:
+        firmware-nxp-wifi-nxp8997-sdio: '*'
+        firmware-nxp-wifi-nxp8997-pcie: '*'
+        kernel-module-crct10dif-ce: '*'
+
+    # 2026 feed (linux-imx 6.18): meta-imx 6.18.20 removes the per-chip 8997
+    # packages; the -all-{sdio,pcie} umbrellas are what the EVK's
+    # nxpwifi-all-{sdio,pcie} MACHINE_FEATURES select. crct10dif is no longer a
+    # module (arm64 CRC-T10DIF acceleration lives in lib/crc).
+    #
+    # The EVK's stock M.2 module is an 88W8997, which NXP's 6.18 moal driver
+    # and firmware release no longer cover at all; the mainline mwifiex driver
+    # plus firmware-nxp-wifi-8997 (meta-avocado-nxp, blobs from NXP's
+    # lf-6.12.49 release) take over. moal/mlan stay for other NXP modules.
+    kernel-6.18.*:
+      packages:
+        firmware-nxp-wifi-all-sdio: '*'
+        firmware-nxp-wifi-all-pcie: '*'
+        firmware-nxp-wifi-8997: '*'
+        kernel-module-mwifiex: '*'
+        kernel-module-mwifiex-sdio: '*'
+        kernel-module-mwifiex-pcie: '*'
 
 sdk:
   image: docker.io/avocadolinux/sdk:{{ env.AVOCADO_DISTRO_RELEASE }}
