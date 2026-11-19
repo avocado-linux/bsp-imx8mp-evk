@@ -9,7 +9,7 @@ extensions:
     summary: Board support for the i.MX 8M Plus EVK
     description: Board support for the i.MX 8M Plus EVK
     license: Apache-2.0
-    url: https://github.com/avocadolinux/avocado-os
+    url: https://github.com/avocado-linux/bsp-imx8mp-evk
     vendor: Avocado Linux <info@avocadolinux.org>
 
     modprobe:
